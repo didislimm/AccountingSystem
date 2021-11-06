@@ -1,6 +1,7 @@
 package com.company;
 
-import java.util.ArrayList;
+import com.company.domain.Flat;
+import com.company.domain.Floor;
 
 import static org.junit.jupiter.api.Assertions.*;
 

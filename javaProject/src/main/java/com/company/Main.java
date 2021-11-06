@@ -8,7 +8,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
         UserInterface userInterface = new UserInterface();
         HouseGenerator houseGenerator=new HouseGenerator(4,10);
-//        userInterface.menu();
+        userInterface.showMenu();
 
 
 

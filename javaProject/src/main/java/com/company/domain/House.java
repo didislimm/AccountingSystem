@@ -1,4 +1,4 @@
-package com.company;
+package com.company.domain;
 
 import java.util.ArrayList;
 
@@ -16,7 +16,7 @@ public class House {
         return floors;
     }
 
-    void addFloor(Floor floor) {
+    public void addFloor(Floor floor) {
         this.floors.add(floor);
     }
 

@@ -1,17 +1,17 @@
-package com.company;
+package com.company.domain;
 
 import java.util.ArrayList;
 
 public class Floor {
     private ArrayList<Flat> flats = new ArrayList<>();
     private int numberOfFloor;
-    private  int valueOfFlats ;
+
 
     public void setFlats(ArrayList<Flat> flats) {
         this.flats = flats;
     }
 
-    void addFlat(Flat flat) {
+    public void addFlat(Flat flat) {
         this.flats.add(flat);
     }
 

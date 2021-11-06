@@ -1,5 +1,8 @@
 package com.company;
 
+import com.company.domain.Flat;
+import com.company.domain.Floor;
+import com.company.domain.House;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;
