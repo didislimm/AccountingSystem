@@ -11,8 +11,8 @@ public class Flat {
     public String toString() {
         return System.lineSeparator()+"Flat " + numberOfFlat +
                 " squareOfFlat=" + squareOfFlat +
-                ", numberOfPeople=" + numberOfLodger +
-                ", numberOfRoom=" + numberOfRoom+System.lineSeparator();
+                " numberOfPeople=" + numberOfLodger +
+                " numberOfRoom=" + numberOfRoom+System.lineSeparator();
     }
 
     public void setSquareOfFlat(double squareOfFlat) {

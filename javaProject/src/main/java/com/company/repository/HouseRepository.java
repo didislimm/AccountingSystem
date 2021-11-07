@@ -15,5 +15,8 @@ public class HouseRepository {
     public static Optional<House> getHouseByNumber(final int numberOfHouse){
         return Optional.ofNullable(intToHouse.get(numberOfHouse));
     }
+    public static void removeHouse(final int numberOfHouse){
+        intToHouse.remove(numberOfHouse);
+    }
 
 }

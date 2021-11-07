@@ -16,11 +16,12 @@ public class UserInterface {
             Choose 3 if you want remove house
             Choose 4 if you want compare 2 houses
             Choose 5 if you want compare 2 flat
-            Choose 0 if you want exit
+            Choose 6 if you want exit
             """;
-    List<House> houses = new ArrayList<House>();
-    int[] squareOfFLat;
+
+    public  ArrayList<Integer> squareOfFLat=new ArrayList<Integer>();
     Scanner scanner = new Scanner(System.in);
+    HouseService houseService = new HouseService();
 
     public int getUserInput() {
         int userInput;
@@ -31,7 +32,7 @@ public class UserInterface {
                 scanner.next();
             }
             userInput = scanner.nextInt();
-        } while (userInput < 0);
+        } while (userInput <= 0);
         return userInput;
     }
 
@@ -46,47 +47,78 @@ public class UserInterface {
             System.out.println("Choose number of operation");
             userChoice = getUserInput();
             switch (userChoice) {
-                case 0: {
-                    System.out.println("Thank you for using CreatorHouse v1.0");
-                    break;
-                }
                 case 1: {
-                    HouseService houseService=new HouseService();
                     int numberOfHouse;
-                    boolean isNumberFree=false;
+                    boolean isNumberFree = false;
                     do {
                         System.out.println("Input number of house");
-                         numberOfHouse = getUserInput();
-                        isNumberFree=houseService.isNumberFree(numberOfHouse);
-                        if (!isNumberFree){
+                        numberOfHouse = getUserInput();
+                        isNumberFree = houseService.isNumberFree(numberOfHouse);
+                        if (!isNumberFree) {
                             System.out.println("Number is busy");
                         }
-                    }while (!isNumberFree);
+                    } while (!isNumberFree);
                     System.out.println("Input value of Floors in house");
                     int valueOfFloorsInHouse = getUserInput();
                     System.out.println("Input value of flats in floor");
                     int valueOfFlatsInFloor = getUserInput();
                     for (int i = 0; i < valueOfFlatsInFloor; i++) {
                         System.out.println("Input square of " + (i + 1) + " flat");
-                        squareOfFLat[i] = getUserInput();
+                        this.squareOfFLat.add(getUserInput());
                     }
                     HouseGenerator houseGenerator = new HouseGenerator(valueOfFlatsInFloor, valueOfFloorsInHouse);
-                    House house = houseGenerator.createRandomHouse();
-                    houses.add(house);
+                    House house = houseGenerator.createHouse(squareOfFLat);
+                    house.setNumberOfHouse(numberOfHouse);
+                    houseService.safe(house);
                     break;
                 }
                 case 2: {
+                    System.out.println("Input number of house ");
+                    int numberOfHouse = getUserInput();
+                    while (houseService.isNumberFree(numberOfHouse)) {
+                        System.out.println("This house are ...");
+                        numberOfHouse = getUserInput();
+                    }
+                    System.out.println(HouseRepository.getHouseByNumber(numberOfHouse));
+                    break;
+                }
+                case 3: {
+                    System.out.println("Input number of house");
+                    int numberOfHouse = getUserInput();
+                    while (houseService.isNumberFree(numberOfHouse)) {
+                        System.out.println("This house are ...");
+                        numberOfHouse = getUserInput();
+                    }
+                    HouseRepository.removeHouse(numberOfHouse);
+                    System.out.println("House with number" + numberOfHouse + "will be removed");
+                    break;
+                }
+                case 4: {
+                    System.out.println("Choose two number of houses which you want to compare");
+                    int numberOfHouse1=getUserInput();
+                    while (houseService.isNumberFree(numberOfHouse1)) {
+                        System.out.println("This house are ...");
+                        numberOfHouse1 = getUserInput();
+                    }
+                    int numberOfHouse2=getUserInput();
+                    while (houseService.isNumberFree(numberOfHouse2)) {
+                        System.out.println("This house are ...");
+                        numberOfHouse2 = getUserInput();
+                    }
+                    System.out.println(HouseRepository.getHouseByNumber(numberOfHouse1));
+                    System.out.println(HouseRepository.getHouseByNumber(numberOfHouse2));
+                }
+                case 5: {
 
+                }
+                case 6: {
+                    System.out.println("Thank you for using CreatorHouse v1.0");
+                    break;
                 }
                 default: {
                     System.out.println("You input incorrect value ...\n");
                 }
             }
-        } while (userChoice != 0);
+        } while (userChoice != 6);
     }
-
-
-//    TODO{
-//        HouseRepository.getHouseByNumber(4).ifPresent(System.out::println);
-//    }
 }

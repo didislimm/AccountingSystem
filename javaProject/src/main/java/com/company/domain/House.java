@@ -8,7 +8,10 @@ public class House {
 
     @Override
     public String toString() {
-        return "House "+ numberOfHouse+
+
+        return "House "+ numberOfHouse+System.lineSeparator()+
+                "Total Area: "+totalAreaOfHouse()+System.lineSeparator()+
+                "Total value of Lodgers: "+totalLodgersOfHouse()+System.lineSeparator()+
                 " floors:" + System.lineSeparator()+floors;
     }
 
