@@ -18,5 +18,8 @@ public class HouseRepository {
     public static void removeHouse(final int numberOfHouse){
         intToHouse.remove(numberOfHouse);
     }
+    public static boolean isRepositoryNull(){
+        return intToHouse.isEmpty();
+    }
 
 }

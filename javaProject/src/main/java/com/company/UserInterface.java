@@ -4,22 +4,24 @@ import com.company.domain.House;
 import com.company.repository.HouseRepository;
 import com.company.service.HouseService;
 
+import javax.crypto.spec.PSource;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 
 public class UserInterface {
     public static final String OPERATIONS_MENU = """
             Input value 0 to 5
-            Choose 1 if you want create  new house
+            Choose 1 if you want create new house
             Choose 2 if you want to know information about an existing house
             Choose 3 if you want remove house
             Choose 4 if you want compare 2 houses
             Choose 5 if you want compare 2 flat
-            Choose 6 if you want exit
+            Choose 0 if you want exit
             """;
 
-    public  ArrayList<Integer> squareOfFLat=new ArrayList<Integer>();
+    public ArrayList<Integer> squareOfFLat = new ArrayList<Integer>();
     Scanner scanner = new Scanner(System.in);
     HouseService houseService = new HouseService();
 
@@ -32,7 +34,7 @@ public class UserInterface {
                 scanner.next();
             }
             userInput = scanner.nextInt();
-        } while (userInput <= 0);
+        } while (userInput < 0);
         return userInput;
     }
 
@@ -51,19 +53,28 @@ public class UserInterface {
                     int numberOfHouse;
                     boolean isNumberFree = false;
                     do {
-                        System.out.println("Input number of house");
+                        System.out.println("Input number of house,choose 0 if you want return to menu");
                         numberOfHouse = getUserInput();
+                        if (numberOfHouse == 0) {
+                            break;
+                        }
                         isNumberFree = houseService.isNumberFree(numberOfHouse);
                         if (!isNumberFree) {
                             System.out.println("Number is busy");
                         }
                     } while (!isNumberFree);
-                    System.out.println("Input value of Floors in house");
+                    System.out.println("Input value of Floors in house,choose 0 if you want return to menu");
                     int valueOfFloorsInHouse = getUserInput();
-                    System.out.println("Input value of flats in floor");
+                    if (numberOfHouse == 0) {
+                        break;
+                    }
+                    System.out.println("Input value of flats in floor,choose 0 if you want return to menu");
                     int valueOfFlatsInFloor = getUserInput();
+                    if (valueOfFlatsInFloor == 0) {
+                        break;
+                    }
                     for (int i = 0; i < valueOfFlatsInFloor; i++) {
-                        System.out.println("Input square of " + (i + 1) + " flat");
+                        System.out.println("Input square of " + (i + 1));
                         this.squareOfFLat.add(getUserInput());
                     }
                     HouseGenerator houseGenerator = new HouseGenerator(valueOfFlatsInFloor, valueOfFloorsInHouse);
@@ -73,20 +84,57 @@ public class UserInterface {
                     break;
                 }
                 case 2: {
-                    System.out.println("Input number of house ");
+                    if (HouseRepository.isRepositoryNull()) {
+                        System.out.println("You not create no one houses ");
+                        break;
+                    }
+                    System.out.println("Input number of house,choose 0 if you want return to menu");
                     int numberOfHouse = getUserInput();
+                    if (numberOfHouse == 0) {
+                        break;
+                    }
                     while (houseService.isNumberFree(numberOfHouse)) {
-                        System.out.println("This house are ...");
+                        System.out.println("There is no house with this number.");
                         numberOfHouse = getUserInput();
                     }
-                    System.out.println(HouseRepository.getHouseByNumber(numberOfHouse));
+                    System.out.println("""
+                            If you want to know information about this house press 1
+                            If you want to know information about flat from this house press 2
+                            choose 0 if you want return to menu""");
+                    int userOperation = getUserInput();
+                    if (numberOfHouse == 0) {
+                        break;
+                    }
+                    switch (userOperation) {
+                        case 1: {
+                            System.out.println(HouseRepository.getHouseByNumber(numberOfHouse));
+                        }
+                        case 2: {
+                            System.out.println("Input number of flat at 1"+" to "+HouseRepository
+                                    .getHouseByNumber(numberOfHouse).get().getValueOfFLats());
+                            int numberOfFlat=getUserInput();
+                            while (!houseService.isFlatExisting(numberOfHouse,numberOfFlat)){
+                                System.out.println("You input number non-existent flat");
+                                numberOfFlat=getUserInput();
+                            }
+                          System.out.println(HouseRepository.getHouseByNumber(numberOfHouse).get().getFlat(numberOfFlat));
+                        }
+                    }
+
                     break;
                 }
                 case 3: {
-                    System.out.println("Input number of house");
+                    if (HouseRepository.isRepositoryNull()) {
+                        System.out.println("You not create no one houses ");
+                        break;
+                    }
+                    System.out.println("Input number of house,choose 0 if you want return to menu");
                     int numberOfHouse = getUserInput();
+                    if (numberOfHouse == 0) {
+                        break;
+                    }
                     while (houseService.isNumberFree(numberOfHouse)) {
-                        System.out.println("This house are ...");
+                        System.out.println("There is no house with this number.");
                         numberOfHouse = getUserInput();
                     }
                     HouseRepository.removeHouse(numberOfHouse);
@@ -94,31 +142,43 @@ public class UserInterface {
                     break;
                 }
                 case 4: {
+                    if (HouseRepository.isRepositoryNull()) {
+                        System.out.println("You not create no one houses ");
+                        break;
+                    }
                     System.out.println("Choose two number of houses which you want to compare");
-                    int numberOfHouse1=getUserInput();
+                    int numberOfHouse1 = getUserInput();
+                    if (numberOfHouse1 == 0) {
+                        break;
+                    }
                     while (houseService.isNumberFree(numberOfHouse1)) {
-                        System.out.println("This house are ...");
+                        System.out.println("There is no house with this number.");
                         numberOfHouse1 = getUserInput();
                     }
-                    int numberOfHouse2=getUserInput();
+                    int numberOfHouse2 = getUserInput();
                     while (houseService.isNumberFree(numberOfHouse2)) {
-                        System.out.println("This house are ...");
+                        System.out.println("There is no house with this number.");
                         numberOfHouse2 = getUserInput();
                     }
                     System.out.println(HouseRepository.getHouseByNumber(numberOfHouse1));
                     System.out.println(HouseRepository.getHouseByNumber(numberOfHouse2));
                 }
                 case 5: {
+                    if (HouseRepository.isRepositoryNull()) {
+                        System.out.println("You not create no one houses ");
+                        break;
+                    }
+
 
                 }
-                case 6: {
-                    System.out.println("Thank you for using CreatorHouse v1.0");
+                case 0: {
+                    System.out.println("Thank you for using CreatorHouse v1.3");
                     break;
                 }
                 default: {
                     System.out.println("You input incorrect value ...\n");
                 }
             }
-        } while (userChoice != 6);
+        } while (userChoice != 0);
     }
 }

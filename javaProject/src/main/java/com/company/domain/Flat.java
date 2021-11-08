@@ -9,10 +9,10 @@ public class Flat {
 
     @Override
     public String toString() {
-        return System.lineSeparator()+"Flat " + numberOfFlat +
+        return System.lineSeparator() + "Flat " + numberOfFlat +
                 " squareOfFlat=" + squareOfFlat +
                 " numberOfPeople=" + numberOfLodger +
-                " numberOfRoom=" + numberOfRoom+System.lineSeparator();
+                " numberOfRoom=" + numberOfRoom + System.lineSeparator();
     }
 
     public void setSquareOfFlat(double squareOfFlat) {
@@ -43,7 +43,9 @@ public class Flat {
         return numberOfRoom;
     }
 
-    public int getNumberOfFlat() { return numberOfFlat;}
+    public int getNumberOfFlat() {
+        return numberOfFlat;
+    }
 
 
     public static final class FlatBuilder {
