@@ -1,6 +1,11 @@
-package com.company.domain;
+package com.company.model;
 
+import lombok.Getter;
+import lombok.Setter;
 
+@Getter
+@Setter
+//TODO фактори
 public class Flat {
     private double squareOfFlat;
     private int numberOfLodger;
@@ -12,41 +17,8 @@ public class Flat {
         return System.lineSeparator() + "Flat " + numberOfFlat +
                 " squareOfFlat=" + squareOfFlat +
                 " numberOfPeople=" + numberOfLodger +
-                " numberOfRoom=" + numberOfRoom + System.lineSeparator();
+                " numberOfRoom=" + numberOfRoom + '\n';
     }
-
-    public void setSquareOfFlat(double squareOfFlat) {
-        this.squareOfFlat = squareOfFlat;
-    }
-
-    public void setNumberOfLodger(int numberOfLodger) {
-        this.numberOfLodger = numberOfLodger;
-    }
-
-    public void setNumberOfRoom(int numberOfRoom) {
-        this.numberOfRoom = numberOfRoom;
-    }
-
-    public void setNumberOfFlat(int numberOfFlat) {
-        this.numberOfFlat = numberOfFlat;
-    }
-
-    public double getSquareOfFlat() {
-        return squareOfFlat;
-    }
-
-    public int getNumberOfLodger() {
-        return numberOfLodger;
-    }
-
-    public int getNumberOfRoom() {
-        return numberOfRoom;
-    }
-
-    public int getNumberOfFlat() {
-        return numberOfFlat;
-    }
-
 
     public static final class FlatBuilder {
         private double squareOfFlat;
