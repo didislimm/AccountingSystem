@@ -1,11 +1,11 @@
-package com.company.model;
+package com.mironov.model;
 
-import com.company.services.HouseService;
-import com.company.util.HouseGenerator;
+import com.mironov.services.HouseService;
+import com.mironov.util.HouseGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -14,7 +14,7 @@ public class House {
     private List<Floor> floors = new ArrayList<>();
     private int numberOfHouse;
 
-    @Override
+@Override
     public String toString() {
         StringBuilder floorsToString = new StringBuilder();
         HouseService houseService = new HouseService();
@@ -51,7 +51,7 @@ public class House {
         public HouseBuilder but(ArrayList<Integer> squareOfFlats, int numberOfFloors) {
             List<Floor> floorList = new ArrayList<>();
             for (int i = 0; i < numberOfFloors; i++) {
-                floorList.add(HouseGenerator.createFloor(squareOfFlats));
+                floorList.add(HouseGenerator.createRandomFloor(squareOfFlats));
             }
             return aHouse().withFloors(floorList).withNumberOfHouse(numberOfHouse);
         }

@@ -1,11 +1,10 @@
-package com.company.model;
+package com.mironov.model;
 
 import lombok.Getter;
 import lombok.Setter;
 
 @Getter
 @Setter
-//TODO фактори
 public class Flat {
     private double squareOfFlat;
     private int numberOfLodger;

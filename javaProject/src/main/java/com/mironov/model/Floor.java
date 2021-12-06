@@ -1,18 +1,18 @@
-package com.company.model;
+package com.mironov.model;
 
-import com.company.util.HouseGenerator;
-import lombok.Data;
+import com.mironov.util.HouseGenerator;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 public class Floor {
     private List<Flat> flats = new ArrayList<>();
     private int numberOfFloor;
-    private int numberOfFlatsInFlor;
+    private int numberOfFlatsInFloor;
 
     @Override
     public String toString() {
@@ -63,7 +63,7 @@ public class Floor {
             Floor floor = new Floor();
             floor.setFlats(flats);
             floor.setNumberOfFloor(numberOfFloor);
-            floor.setNumberOfFlatsInFlor(numberOfFlatsInFlor);
+            floor.setNumberOfFlatsInFloor(numberOfFlatsInFlor);
             return floor;
         }
     }

@@ -1,6 +1,6 @@
-package com.company.util;
+package com.mironov.util;
 
-import com.company.model.*;
+import com.mironov.model.*;
 
 import java.util.ArrayList;
 
@@ -30,26 +30,16 @@ public class HouseGenerator {
                 .build();
     }
 
-    public static Flat createFlat(int numberOfLodger,int numberOfRoom,double squareOfFlat){
-        flatNumber++;
-        return Flat.FlatBuilder.aFlat()
-                .withSquareOfFlat(squareOfFlat)
-                .withNumberOfRoom(numberOfRoom)
-                .withNumberOfLodger(numberOfLodger)
-                .build();
-    }
-
-    public static Floor createFloor(ArrayList<Integer> squareOfFlats) {
+    public static Floor createRandomFloor(ArrayList<Integer> squareOfFlats) {
         floorNumber++;
         return Floor.FloorBuilder.aFloor().but(squareOfFlats, floorNumber).build();
     }
 
-    public House createHouse(ArrayList<Integer> squareOfFlats) {
+    public House createRandomHouse(ArrayList<Integer> squareOfFlats) {
         House house = House.HouseBuilder.aHouse().but(squareOfFlats, valueOfFloors).build();
         squareOfFlats.clear();
         flatNumber = 0;
         floorNumber = 0;
         return house;
     }
-
 }

@@ -1,8 +1,8 @@
-package com.company;
+package com.mironov;
 
-import com.company.util.UserInterface;
+import com.mironov.util.UserInterface;
 
-//TODO доделать методы сравнения красивый вывод
+//TODO доделать методы сравнения!!!! красивый вывод + тесты
 public class Main {
     public static void main(String[] args) {
         UserInterface userInterface = new UserInterface();
