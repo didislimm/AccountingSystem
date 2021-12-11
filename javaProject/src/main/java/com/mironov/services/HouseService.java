@@ -1,8 +1,10 @@
 package com.mironov.services;
 
-import com.mironov.model.*;
+import com.mironov.model.Flat;
+import com.mironov.model.Floor;
+import com.mironov.model.House;
 import com.mironov.repository.HouseRepository;
-import com.mironov.repository.impl.HouseRepositoryImpl;
+import com.mironov.util.UserInterface;
 
 public class HouseService {
 
@@ -17,15 +19,20 @@ public class HouseService {
     }
 
     public boolean isFlatExisting(Integer numberOfHouse, int numberOfFlat) {
-        return (numberOfFlat > 0 && numberOfFlat <= getValueOfFlats(numberOfHouse));
+        return (numberOfFlat > 0 && numberOfFlat <= getValueOfFlatsInHouse(numberOfHouse));
     }
     
     public House findHouseByNumber(Integer numberOfHouse){
+        UserInterface userInterface=new UserInterface();
+        while (isNumberFree(numberOfHouse)) {
+            System.out.println("There is no house with this number.Please try again");
+            numberOfHouse = userInterface.getUserInput();
+        }
         return  houseRepository.getByKey(numberOfHouse).get();
     }
 
     public boolean isFlatNonExisting(Integer numberOfHouse, int numberOfFlat) {
-        return !(numberOfFlat > 0 && numberOfFlat <= getValueOfFlats(numberOfHouse));
+        return !(numberOfFlat > 0 && numberOfFlat <= getValueOfFlatsInHouse(numberOfHouse));
     }
 
     public Flat getFlatByNumber(int numberOfFlat, int numberOfHouse) {
@@ -52,7 +59,7 @@ public class HouseService {
         return (((numberOfFlat - 1) % (numberOfFloors * numberOfFlatInFlor) / numberOfFlatInFlor) + 1);
     }
 
-    public int getValueOfFlats(int numberOfHouse) {
+    public int getValueOfFlatsInHouse(int numberOfHouse) {
         House house = findHouseByNumber(numberOfHouse);
         int valueOfFlats = 0;
         FloorService floorService = new FloorService();

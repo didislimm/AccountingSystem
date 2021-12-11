@@ -1,5 +1,6 @@
 package com.mironov.util;
 
+import com.mironov.model.Floor;
 import com.mironov.model.House;
 import com.mironov.repository.HouseRepository;
 import com.mironov.repository.impl.HouseRepositoryImpl;
@@ -39,7 +40,20 @@ public class UserInterface {
         System.out.println(OPERATIONS_MENU);
     }
 
+    private String printHouse(House house) {
+        StringBuilder floorsToString = new StringBuilder();
+        HouseService houseService = new HouseService(new HouseRepositoryImpl());
+        for (Floor floor : house.getFloors()) {
+            floorsToString.append(floor.toString());
+        }
+        return "House " + house.getNumberOfHouse() + '\n' +
+                "Total Area: " + houseService.getTotalAreaOfHouse(house.getNumberOfHouse()) + '\n' +
+                "Total value of Lodgers: " + houseService.getTotalLodgersOfHouse(house.getNumberOfHouse()) + '\n' +
+                " floors:" + System.lineSeparator() + floorsToString;
+    }
+
     public void showMenu() {
+
         int userChoice;
         do {
             showOperationsMenu();
@@ -81,7 +95,7 @@ public class UserInterface {
                         System.out.println("You not create no one houses ");
                         break;
                     }
-                    System.out.println("Input number of house:"+houseService.outputAllNumberOfHouses()
+                    System.out.println("Input number of house:" + houseService.outputAllNumberOfHouses()
                             + ",choose 0 if you want return to menu");
                     int numberOfHouse = getUserInput();
                     if (numberOfHouse == 0) {
@@ -95,7 +109,7 @@ public class UserInterface {
                             If you want to know information about this house press 1
                             If you want to know information about flat from this house press 2
                             choose 0 if you want return to menu""");
-                    int userOperation=3;
+                    int userOperation;
                     do {
                         userOperation = getUserInput();
                         if (userOperation == 0) {
@@ -103,11 +117,11 @@ public class UserInterface {
                         }
                         switch (userOperation) {
                             case 1 -> {
-                                System.out.println(houseService.findHouseByNumber(numberOfHouse));
+                                System.out.println(printHouse(houseService.findHouseByNumber(numberOfHouse)));
                             }
                             case 2 -> {
                                 System.out.println("Input number of flat at 1" + " to " +
-                                        houseService.getValueOfFlats(numberOfHouse));
+                                        houseService.getValueOfFlatsInHouse(numberOfHouse));
                                 int numberOfFlat = getUserInput();
                                 while (!houseService.isFlatExisting(numberOfHouse, numberOfFlat)) {
                                     System.out.println("You input number non-existent flat");
@@ -128,7 +142,7 @@ public class UserInterface {
                         System.out.println("You not create no one houses ");
                         break;
                     }
-                    System.out.println("Input number of house"+houseService.outputAllNumberOfHouses()
+                    System.out.println("Input number of house" + houseService.outputAllNumberOfHouses()
                             + ",choose 0 if you want return to menu");
                     int numberOfHouse = getUserInput();
                     if (numberOfHouse == 0) {
@@ -158,7 +172,7 @@ public class UserInterface {
                         }
                         switch (userInput) {
                             case 1 -> {
-                                System.out.println("Input number of first house"+houseService.outputAllNumberOfHouses()
+                                System.out.println("Input number of first house" + houseService.outputAllNumberOfHouses()
                                         + ",choose 0 if you want return to menu");
                                 int numberOfFirstHouse = getUserInput();
                                 if (numberOfFirstHouse == 0) {
@@ -168,7 +182,7 @@ public class UserInterface {
                                     System.out.println("There is no house with this number.Please try again");
                                     numberOfFirstHouse = getUserInput();
                                 }
-                                System.out.println("Input number of second house"+houseService.outputAllNumberOfHouses());
+                                System.out.println("Input number of second house" + houseService.outputAllNumberOfHouses());
                                 int numberOfSecondHouse = getUserInput();
                                 while (houseService.isNumberFree(numberOfSecondHouse) ||
                                         numberOfFirstHouse == numberOfSecondHouse) {
@@ -179,7 +193,7 @@ public class UserInterface {
                                 System.out.println(houseService.compareTwoHouses(numberOfFirstHouse, numberOfSecondHouse));
                             }
                             case 2 -> {
-                                System.out.println("Input number of first house"+houseService.outputAllNumberOfHouses()
+                                System.out.println("Input number of first house" + houseService.outputAllNumberOfHouses()
                                         + ",choose 0 if you want return to menu");
                                 int numberOfFirstHouse = getUserInput();
                                 if (numberOfFirstHouse == 0) {
@@ -190,14 +204,14 @@ public class UserInterface {
                                     numberOfFirstHouse = getUserInput();
                                 }
                                 System.out.println(" Input number of first flat by " + numberOfFirstHouse + " house" +
-                                        "(1-" + houseService.getValueOfFlats(numberOfFirstHouse) + ")");
+                                        "(1-" + houseService.getValueOfFlatsInHouse(numberOfFirstHouse) + ")");
                                 int numberOfFirstFlat = getUserInput();
                                 while (houseService.isFlatNonExisting(numberOfFirstHouse, numberOfFirstFlat)) {
                                     System.out.println("There is no flat with this number.Please try again");
                                     numberOfFirstFlat = getUserInput();
                                 }
 
-                                System.out.println("Input number of second house"+houseService.outputAllNumberOfHouses());
+                                System.out.println("Input number of second house" + houseService.outputAllNumberOfHouses());
                                 int numberOfSecondHouse = getUserInput();
                                 while (houseService.isNumberFree(numberOfSecondHouse)) {
                                     System.out.println("There is no house with this number.Please try again");
@@ -205,7 +219,7 @@ public class UserInterface {
                                 }
 
                                 System.out.println(" Input number of first flat by " + numberOfSecondHouse + " house" +
-                                        "(1-" + houseService.getValueOfFlats(numberOfSecondHouse) + ")");
+                                        "(1-" + houseService.getValueOfFlatsInHouse(numberOfSecondHouse) + ")");
                                 int numberOfSecondFlat = getUserInput();
                                 while (houseService.isFlatNonExisting(numberOfSecondHouse, numberOfSecondFlat)
                                         || (numberOfFirstFlat == numberOfSecondFlat)) {
@@ -225,7 +239,7 @@ public class UserInterface {
 
                 }
                 case 0 -> {
-                    System.out.println("Thank you for using CreatorHouse v1.5");
+                    System.out.println("Thank you for using CreatorHouse v1.6");
 
                 }
                 default -> {

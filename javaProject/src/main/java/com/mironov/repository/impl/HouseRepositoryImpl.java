@@ -12,7 +12,6 @@ public class HouseRepositoryImpl implements HouseRepository {
         houses.put(house.getNumberOfHouse(), house);
     }
 
-    @Override
     public  Optional<House> getByKey(Integer key) {
         return Optional.ofNullable(houses.get(key));
     }
@@ -23,7 +22,7 @@ public class HouseRepositoryImpl implements HouseRepository {
 
     public List<Integer> getAllKey(){ return List.copyOf(houses.keySet());}
 
-    @Override
+
     public void removeByKey(Integer key) {
         houses.remove(key);
     }

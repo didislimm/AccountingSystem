@@ -11,7 +11,7 @@ public interface Repository <PK, T>{
 
     List<T> getAll();
 
-    void removeByKey(final PK key) ;
-
     List<PK> getAllKey();
+
+    void removeByKey(final PK key) ;
 }

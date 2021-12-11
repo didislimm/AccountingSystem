@@ -25,20 +25,22 @@ public class FloorServiceTest {
     }
     @Test
      void getCountingOfSquareTest() {
-        double totalArea = floorService.getCountingOfSquare(floor);
-        assertEquals(85, totalArea);
+        assertEquals(85,floorService.getCountingOfSquare(floor));
     }
 
     @Test
     void getCountingOfLodgerTest() {
-        double totalValueOfLodgers = floorService.getCountingOfLodger(floor);
-        assertEquals(20, totalValueOfLodgers);
+        assertEquals(20, floorService.getCountingOfLodger(floor));
     }
 
     @Test
     void getCountingOfRoomsTest() {
-        double totalValueOfRooms = floorService.getCountingOfRooms(floor);
-        assertEquals(15, totalValueOfRooms);
+        assertEquals(15, floorService.getCountingOfRooms(floor));
+    }
+
+    @Test
+    void getCountingOfFlatsInFloorTest(){
+        assertEquals(5,floorService.getCountingOfFlatsInFloor(floor));
     }
 
 }

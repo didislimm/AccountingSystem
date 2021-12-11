@@ -7,13 +7,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.exceptions.base.MockitoException;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 //@ExtendWith(MockitoException.class)
@@ -31,20 +30,24 @@ class HouseServiceTest {
     @BeforeAll
     static void setUp() {
         Floor floor1 = new Floor();
+        floor1.setNumberOfFloor(1);
         for (int i = 0; i < 5; i++) {
             floor1.getFlats().add(Flat.FlatBuilder
                     .aFlat()
-                    .withNumberOfFlat(3)
+                    .withNumberOfFlat(i+1)
                     .withNumberOfLodger(4)
                     .withNumberOfRoom(3)
                     .withSquareOfFlat(55)
                     .build());
         }
+        floor1.setNumberOfFlatsInFloor(5);
         Floor floor2 = new Floor();
+        floor2.setNumberOfFloor(2);
+        floor2.setNumberOfFlatsInFloor(5);
         for (int i = 0; i < 5; i++) {
             floor2.getFlats().add(Flat.FlatBuilder
                     .aFlat()
-                    .withNumberOfFlat(2)
+                    .withNumberOfFlat(6+i)
                     .withNumberOfLodger(4)
                     .withNumberOfRoom(4)
                     .withSquareOfFlat(65)
@@ -56,6 +59,7 @@ class HouseServiceTest {
     }
     @Test
     void safe() {
+        houseService.safe(house);
     }
 
     @Test
@@ -68,65 +72,63 @@ class HouseServiceTest {
     @Test
     void isNumberFreeFalseExitTest() { assertTrue(houseService.isNumberFree(2)); }
     @Test
-    void isFlatExisting() {
+    void isFlatExistingTest() {
         assertTrue(houseService.isFlatExisting(1, 10));
     }
 
     @Test
-    void isFlatNonExisting() {
+    void isFlatNonExistingTest() {
         assertTrue(houseService.isFlatNonExisting(1, 11));
     }
 
+//    @Test
+//    void findHouseByNumberTest() {
+//
+//    }
+
     @Test
-    void findHouseByNumber() {
+    void getFlatByNumberTrueExitTest() {
+        assertEquals(house.getFloors().get(1).getFlats().get(2),
+                houseService.getFlatByNumber(8,1));
     }
 
     @Test
-    void getFlatByNumber() {
+    void getFlatByNumberFalseExitTest(){
+        assertNull(houseService.getFlatByNumber(12, 1));
     }
 
     @Test
-    void getNumberOfFloors() {
+    void getNumberOfFloorsTest() {
+        assertEquals(2,houseService.getNumberOfFloors(1));
     }
 
     @Test
-    void getFloorOfFlat() {
+    void getFloorOfFlatTrueExitTest() {
+        assertEquals(1,houseService.getFloorOfFlat(5,1));
     }
 
     @Test
-    void getValueOfFlats() {
+    void getFloorOfFlatFalseExitTest() {
+        assertNotEquals(2,houseService.getFloorOfFlat(5,1));
     }
 
     @Test
-    void getValueOfFlatInFloor() {
+    void getValueOfFlatsInHouseTest() {
+        assertEquals(10,houseService.getValueOfFlatsInHouse(1));
     }
 
     @Test
-    void getTotalAreaOfHouse() {
+    void getValueOfFlatInFloorTest() {
+        assertEquals(5,houseService.getValueOfFlatInFloor(1));
     }
 
     @Test
-    void getTotalLodgersOfHouse() {
+    void getTotalAreaOfHouseTest() {
+        assertEquals(600,houseService.getTotalAreaOfHouse(1));
     }
 
     @Test
-    void compareTwoHouses() {
-    }
-
-    @Test
-    void compareTwoFlats() {
-    }
-
-    @Test
-    void isRepositoryNull() {
-
-    }
-
-    @Test
-    void isRepositoryHaveTwoHouses() {
-    }
-
-    @Test
-    void outputAllNumberOfHouses() {
+    void getTotalLodgersOfHouseTest() {
+        assertEquals(40,houseService.getTotalLodgersOfHouse(1));
     }
 }
