@@ -20,8 +20,8 @@ public class UserInterface {
             """;
     public ArrayList<Integer> squareOfFLat = new ArrayList<>();
     public Scanner scanner = new Scanner(System.in);
-    public HouseRepository houseRepository=new HouseRepositoryImpl();
-    public HouseService houseService = new HouseService();//houseRepository
+    public HouseRepository houseRepository = new HouseRepositoryImpl();
+    public HouseService houseService = new HouseService(new HouseRepositoryImpl());//houseRepository
 
     public int getUserInput() {
         int userInput;

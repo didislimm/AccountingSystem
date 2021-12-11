@@ -8,7 +8,11 @@ import com.mironov.util.UserInterface;
 
 public class HouseService {
 
-    private final HouseRepository houseRepository=new HouseRepositoryImpl();
+    private final HouseRepository houseRepository;
+
+    public HouseService(final HouseRepository houseRepository) {
+        this.houseRepository = houseRepository;
+    }
 
     public void safe(House house) {
         houseRepository.add(house);

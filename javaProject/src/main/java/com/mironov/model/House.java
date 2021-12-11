@@ -1,6 +1,5 @@
 package com.mironov.model;
 
-import com.mironov.services.HouseService;
 import com.mironov.util.HouseGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,19 +12,6 @@ import java.util.List;
 public class House {
     private List<Floor> floors = new ArrayList<>();
     private int numberOfHouse;
-
-@Override
-    public String toString() {
-        StringBuilder floorsToString = new StringBuilder();
-        HouseService houseService = new HouseService();
-        for (Floor floor : floors) {
-            floorsToString.append(floor.toString());
-        }
-        return "House " + numberOfHouse + System.lineSeparator() +
-                "Total Area: " + houseService.getTotalAreaOfHouse(numberOfHouse) + System.lineSeparator() +
-                "Total value of Lodgers: " + houseService.getTotalLodgersOfHouse(numberOfHouse) + System.lineSeparator() +
-                " floors:" + System.lineSeparator() + floorsToString;
-    }
 
     public static final class HouseBuilder {
         private List<Floor> floors = new ArrayList<>();

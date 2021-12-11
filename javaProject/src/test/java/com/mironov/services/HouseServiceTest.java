@@ -1,8 +1,12 @@
 package com.mironov.services;
 
-import com.mironov.model.*;
+import com.mironov.model.Flat;
+import com.mironov.model.Floor;
+import com.mironov.model.House;
 import com.mironov.repository.HouseRepository;
-import org.junit.jupiter.api.*;
+import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -15,7 +19,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-//@ExtendWith(MockitoException.class)
+@ExtendWith(MockitoExtension.class)
 @RunWith(MockitoJUnitRunner.class)
 class HouseServiceTest {
 
@@ -25,7 +29,7 @@ class HouseServiceTest {
     HouseService houseService;
 
     @Mock
-    static HouseRepository houseRepository= mock(HouseRepository.class);
+    HouseRepository houseRepository;
 
     @BeforeAll
     static void setUp() {
@@ -57,6 +61,11 @@ class HouseServiceTest {
         house.getFloors().add(floor2);
         house.setNumberOfHouse(1);
     }
+    @BeforeEach
+    void mock(){
+        when(houseRepository.getByKey(anyInt())).thenReturn(Optional.of(house));
+    }
+
     @Test
     void safe() {
         houseService.safe(house);
@@ -64,13 +73,15 @@ class HouseServiceTest {
 
     @Test
     void isNumberFreeTrueExitTest() {
-        when(houseRepository.getByKey(anyInt())).thenReturn(Optional.of(house));
-        boolean result=houseService.isNumberFree(1);
-        assertFalse(result);
+        assertFalse(houseService.isNumberFree(1));
     }
 
     @Test
-    void isNumberFreeFalseExitTest() { assertTrue(houseService.isNumberFree(2)); }
+    void isNumberFreeFalseExitTest() {
+        when(houseRepository.getByKey(anyInt())).thenReturn(Optional.empty());
+        assertTrue(houseService.isNumberFree(2));
+    }
+
     @Test
     void isFlatExistingTest() {
         assertTrue(houseService.isFlatExisting(1, 10));
