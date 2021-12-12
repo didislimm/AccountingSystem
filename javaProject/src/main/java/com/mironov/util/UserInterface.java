@@ -20,8 +20,8 @@ public class UserInterface {
             """;
     public ArrayList<Integer> squareOfFLat = new ArrayList<>();
     public Scanner scanner = new Scanner(System.in);
-    public HouseRepository houseRepository = new HouseRepositoryImpl();
-    public HouseService houseService = new HouseService(new HouseRepositoryImpl());//houseRepository
+    public HouseRepository houseRepository =HouseRepositoryImpl.getInstance();
+    public HouseService houseService =HouseService.getInstance(houseRepository) ;//houseRepository
 
     public int getUserInput() {
         int userInput;
@@ -42,7 +42,6 @@ public class UserInterface {
 
     private String printHouse(House house) {
         StringBuilder floorsToString = new StringBuilder();
-        HouseService houseService = new HouseService(new HouseRepositoryImpl());
         for (Floor floor : house.getFloors()) {
             floorsToString.append(floor.toString());
         }
@@ -85,7 +84,7 @@ public class UserInterface {
                         System.out.println("Input square of " + (i + 1) + " flat");
                         this.squareOfFLat.add(getUserInput());
                     }
-                    HouseGenerator houseGenerator = new HouseGenerator(valueOfFloorsInHouse);
+                    HouseGenerator houseGenerator = HouseGenerator.getInstance(valueOfFloorsInHouse);
                     House house = houseGenerator.createRandomHouse(squareOfFLat);
                     house.setNumberOfHouse(numberOfHouse);
                     houseService.safe(house);

@@ -25,6 +25,7 @@ public class Floor {
     }
 
     public static final class FloorBuilder {
+        private int id;
         private List<Flat> flats = new ArrayList<>();
         private int numberOfFloor;
         private int numberOfFlatsInFlor;

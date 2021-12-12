@@ -20,6 +20,7 @@ public class Flat {
     }
 
     public static final class FlatBuilder {
+        private int id;
         private double squareOfFlat;
         private int numberOfLodger;
         private int numberOfRoom;

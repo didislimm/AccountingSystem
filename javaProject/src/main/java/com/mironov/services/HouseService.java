@@ -10,8 +10,17 @@ public class HouseService {
 
     private final HouseRepository houseRepository;
 
+    private static HouseService instance=null;
+
     public HouseService(final HouseRepository houseRepository) {
         this.houseRepository = houseRepository;
+    }
+
+    public static synchronized HouseService getInstance(final HouseRepository houseRepository){
+        if (Objects.isNull(instance)){
+            instance=new HouseService(houseRepository);
+        }
+        return instance;
     }
 
     public void safe(House house) {

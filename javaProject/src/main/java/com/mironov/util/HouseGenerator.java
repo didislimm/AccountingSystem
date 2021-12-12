@@ -1,16 +1,31 @@
 package com.mironov.util;
 
-import com.mironov.model.*;
+import com.mironov.model.Flat;
+import com.mironov.model.Floor;
+import com.mironov.model.House;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class HouseGenerator {
-    private final int valueOfFloors;
     private static int flatNumber = 0;
     private static int floorNumber = 0;
+    private final int valueOfFloors;
+    private static HouseGenerator instance=null;
 
-    public HouseGenerator(int valueOfFloors) {
+    private HouseGenerator(int valueOfFloors) {
         this.valueOfFloors = valueOfFloors;
+    }
+
+    public int getValueOfFloors() {
+        return valueOfFloors;
+    }
+
+    public static synchronized HouseGenerator getInstance(int valueOfFloors) {
+        if (Objects.isNull(instance)){
+            instance=new HouseGenerator(valueOfFloors);
+        }
+        return instance;
     }
 
     public static Double getRandomDoubleInRange(int min, int max) {

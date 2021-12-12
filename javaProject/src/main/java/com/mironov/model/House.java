@@ -10,6 +10,7 @@ import java.util.List;
 @Getter
 @Setter
 public class House {
+    private int id;
     private List<Floor> floors = new ArrayList<>();
     private int numberOfHouse;
 
