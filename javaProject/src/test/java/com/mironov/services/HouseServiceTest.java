@@ -69,8 +69,8 @@ class HouseServiceTest {
     }
 
     @Test
-    void safe() {
-        houseService.safe(house);
+    void saveTest() {
+        houseService.save(house);
     }
 
     @Test

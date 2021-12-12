@@ -2,6 +2,7 @@ package com.mironov.services;
 
 import com.mironov.model.Flat;
 import com.mironov.model.Floor;
+import com.mironov.util.SingletonFactory;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
@@ -9,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class FloorServiceTest {
 
-    FloorService floorService = new FloorService();
+    FloorService floorService = SingletonFactory.getObject(FloorService.class);
     static Floor floor=new Floor();
     @BeforeAll
       static void beforeAll() {

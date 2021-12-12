@@ -87,7 +87,7 @@ public class UserInterface {
                     HouseGenerator houseGenerator = HouseGenerator.getInstance(valueOfFloorsInHouse);
                     House house = houseGenerator.createRandomHouse(squareOfFLat);
                     house.setNumberOfHouse(numberOfHouse);
-                    houseService.safe(house);
+                    houseService.save(house);
                 }
                 case 2 -> {
                     if (houseService.isRepositoryNull()) {

@@ -4,7 +4,10 @@ import com.mironov.model.Flat;
 import com.mironov.model.Floor;
 import com.mironov.model.House;
 import com.mironov.repository.HouseRepository;
+import com.mironov.util.SingletonFactory;
 import com.mironov.util.UserInterface;
+
+import java.util.Objects;
 
 public class HouseService {
 
@@ -23,7 +26,7 @@ public class HouseService {
         return instance;
     }
 
-    public void safe(House house) {
+    public void save(House house) {
         houseRepository.add(house);
     }
 
@@ -34,14 +37,14 @@ public class HouseService {
     public boolean isFlatExisting(Integer numberOfHouse, int numberOfFlat) {
         return (numberOfFlat > 0 && numberOfFlat <= getValueOfFlatsInHouse(numberOfHouse));
     }
-    
-    public House findHouseByNumber(Integer numberOfHouse){
-        UserInterface userInterface=new UserInterface();
+
+    public House findHouseByNumber(Integer numberOfHouse) {
+        UserInterface userInterface = new UserInterface();
         while (isNumberFree(numberOfHouse)) {
             System.out.println("There is no house with this number.Please try again");
             numberOfHouse = userInterface.getUserInput();
         }
-        return  houseRepository.getByKey(numberOfHouse).get();
+        return houseRepository.getByKey(numberOfHouse).get();
     }
 
     public boolean isFlatNonExisting(Integer numberOfHouse, int numberOfFlat) {
@@ -51,7 +54,7 @@ public class HouseService {
     public Flat getFlatByNumber(int numberOfFlat, int numberOfHouse) {
         Flat resultFlat = null;
         int numberOfFloor = getFloorOfFlat(numberOfFlat, numberOfHouse);
-        House house =  findHouseByNumber(numberOfHouse);
+        House house = findHouseByNumber(numberOfHouse);
         Floor floor = house.getFloors().get(numberOfFloor - 1);
         for (Flat flat : floor.getFlats()) {
             if (flat.getNumberOfFlat() == numberOfFlat) {
@@ -75,7 +78,7 @@ public class HouseService {
     public int getValueOfFlatsInHouse(int numberOfHouse) {
         House house = findHouseByNumber(numberOfHouse);
         int valueOfFlats = 0;
-        FloorService floorService = new FloorService();
+        FloorService floorService = SingletonFactory.getObject(FloorService.class);
         for (Floor floor : house.getFloors()) {
             valueOfFlats += floorService.getCountingOfFlatsInFloor(floor);
         }
@@ -88,8 +91,8 @@ public class HouseService {
     }
 
     public double getTotalAreaOfHouse(int numberOfHouse) {
-        House house =  findHouseByNumber(numberOfHouse);
-        FloorService floorService = new FloorService();
+        House house = findHouseByNumber(numberOfHouse);
+        FloorService floorService = SingletonFactory.getObject(FloorService.class);
         double totalArea = 0;
         for (Floor floor : house.getFloors()) {
             totalArea += floorService.getCountingOfSquare(floor);
@@ -98,8 +101,8 @@ public class HouseService {
     }
 
     public int getTotalLodgersOfHouse(int numberOfHouse) {
-        House house =findHouseByNumber(numberOfHouse);
-        FloorService floorService = new FloorService();
+        House house = findHouseByNumber(numberOfHouse);
+        FloorService floorService = SingletonFactory.getObject(FloorService.class);
         int totalLodgers = 0;
         for (Floor floor : house.getFloors()) {
             totalLodgers += floorService.getCountingOfLodger(floor);
@@ -152,15 +155,15 @@ public class HouseService {
     }
 
 
-    public boolean isRepositoryNull(){
+    public boolean isRepositoryNull() {
         return houseRepository.getAll().isEmpty();
     }
 
-    public boolean isRepositoryHaveTwoHouses(){
-        return houseRepository.getAll().size()<2;
+    public boolean isRepositoryHaveTwoHouses() {
+        return houseRepository.getAll().size() < 2;
     }
 
-    public String outputAllNumberOfHouses(){
+    public String outputAllNumberOfHouses() {
         return houseRepository.getAllKey().toString();
     }
 }
