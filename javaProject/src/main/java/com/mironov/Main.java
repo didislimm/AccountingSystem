@@ -1,5 +1,8 @@
 package com.mironov;
 
+import com.mironov.repository.HouseRepository;
+import com.mironov.repository.impl.FlatRepositoryImpl;
+import com.mironov.repository.impl.HouseRepositoryImpl;
 import com.mironov.util.UserInterface;
 
 public class Main {

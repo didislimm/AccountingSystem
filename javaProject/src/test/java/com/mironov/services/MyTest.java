@@ -1,5 +1,6 @@
 package com.mironov.services;
 
+import org.junit.Assert;
 import org.junit.jupiter.api.Test;
 
 import java.sql.*;
@@ -7,10 +8,11 @@ import java.sql.*;
 public class MyTest {
 
 
-    private String sql = "DROP TABLE IF EXISTS HOUSES;\n" +
-            "CREATE TABLE HOUSES(ID INT PRIMARY KEY, NAME VARCHAR(255));\n" +
-            "INSERT INTO HOUSES VALUES(1, 'Hello');\n" +
-            "INSERT INTO HOUSES VALUES(2, 'World');";
+    private String sql = """
+            DROP TABLE IF EXISTS HOUSES;
+            CREATE TABLE HOUSES(ID INT PRIMARY KEY, NAME VARCHAR(255));
+            INSERT INTO HOUSES VALUES(1, 'Hello');
+            INSERT INTO HOUSES VALUES(2, 'World');""";
 
 
     @Test
@@ -27,7 +29,6 @@ public class MyTest {
 
         while (resultSet.next()){
             String name = resultSet.getString("name");
-            System.out.print(name);
         }
 
 

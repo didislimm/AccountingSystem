@@ -1,27 +1,23 @@
 package com.mironov.services;
 
 import com.mironov.model.Floor;
-import com.mironov.repository.FloorRepository;
-
 import java.util.Objects;
 import java.util.stream.DoubleStream;
 import java.util.stream.IntStream;
 
 public class FloorService {
 
-    private static FloorService instance = null;
+    private static FloorService Instance = null;
 
-    private final FloorRepository floorRepository;
 
-    private FloorService(final FloorRepository floorRepository) {
-        this.floorRepository = floorRepository;
+    private FloorService() {
     }
 
-    public static synchronized FloorService getInstance(final FloorRepository floorRepository) {
-        if (Objects.isNull(instance)) {
-            instance = new FloorService(floorRepository);
+    public static synchronized FloorService getInstance() {
+        if (Objects.isNull(Instance)) {
+            Instance = new FloorService();
         }
-        return instance;
+        return Instance;
     }
 
     public double getCountingOfSquare(Floor floor) {

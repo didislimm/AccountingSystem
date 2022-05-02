@@ -3,16 +3,43 @@ package com.mironov.model;
 import com.mironov.util.HouseGenerator;
 import lombok.Getter;
 import lombok.Setter;
-
 import java.util.ArrayList;
 import java.util.List;
 
-@Getter
-@Setter
+
 public class Floor {
     private List<Flat> flats = new ArrayList<>();
     private int numberOfFloor;
-    private int numberOfFlatsInFloor;
+    private int numberOfFlats;
+    private int numberOfHouse;
+
+    public List<Flat> getFlats() {
+        return flats;
+    }
+
+    public int getNumberOfFloor() {
+        return numberOfFloor;
+    }
+
+    public void setNumberOfFloor(int numberOfFloor) {
+        this.numberOfFloor = numberOfFloor;
+    }
+
+    public int getNumberOfFlats() {
+        return numberOfFlats;
+    }
+
+    public void setNumberOfFlats(int numberOfFlats) {
+        this.numberOfFlats = numberOfFlats;
+    }
+
+    public int getNumberOfHouse() {
+        return numberOfHouse;
+    }
+
+    public void setNumberOfHouse(int numberOfHouse) {
+        this.numberOfHouse = numberOfHouse;
+    }
 
     @Override
     public String toString() {
@@ -24,11 +51,21 @@ public class Floor {
                 " flats: " + flatsToString;
     }
 
+//    public void setFlats(List<Flat> flats) {
+//        this.flats.clear();
+//        this.flats.addAll(flats);
+//    }
+
+
+    public void setFlats(List<Flat> flats) {
+        this.flats = flats;
+    }
+
     public static final class FloorBuilder {
-        private int id;
         private List<Flat> flats = new ArrayList<>();
         private int numberOfFloor;
-        private int numberOfFlatsInFlor;
+        private int numberOfFlatsInFloor;
+        private int numberOfHouse;
 
         private FloorBuilder() {
         }
@@ -47,24 +84,31 @@ public class Floor {
             return this;
         }
 
-        public FloorBuilder withNumberOfFlatsInFlor(int numberOfFlatsInFlor) {
-            this.numberOfFlatsInFlor = numberOfFlatsInFlor;
+        public FloorBuilder withNumberOfFlats(int numberOfFlatsInFloor) {
+            this.numberOfFlatsInFloor = numberOfFlatsInFloor;
             return this;
         }
 
+        public FloorBuilder withNumberOfHouse(int numberOfHouse){
+             this.numberOfHouse=numberOfHouse;
+             return this;
+        }
         public FloorBuilder but(ArrayList<Integer> squareOfFlats, int numberOfFloor) {
             List<Flat> flatList = new ArrayList<>();
             for (Integer squareOfFlat : squareOfFlats) {
                 flatList.add(HouseGenerator.createRandomFlat(squareOfFlat));
             }
-            return aFloor().withFlats(flatList).withNumberOfFloor(numberOfFloor).withNumberOfFlatsInFlor(squareOfFlats.size());
+            return aFloor().withFlats(flatList).withNumberOfFloor(numberOfFloor)
+                    .withNumberOfFlats(squareOfFlats.size()).withNumberOfHouse(numberOfHouse)
+                    .withNumberOfHouse(numberOfHouse);
         }
 
         public Floor build() {
             Floor floor = new Floor();
             floor.setFlats(flats);
             floor.setNumberOfFloor(numberOfFloor);
-            floor.setNumberOfFlatsInFloor(numberOfFlatsInFlor);
+            floor.setNumberOfFlats(numberOfFlatsInFloor);
+            floor.setNumberOfHouse(numberOfHouse);
             return floor;
         }
     }

@@ -3,15 +3,21 @@ package com.mironov.services;
 import com.mironov.model.Flat;
 import com.mironov.model.Floor;
 import com.mironov.model.House;
+import com.mironov.repository.FlatRepository;
 import com.mironov.repository.HouseRepository;
+import com.mironov.repository.impl.FlatRepositoryImpl;
 import com.mironov.util.SingletonFactory;
 import com.mironov.util.UserInterface;
 
+import java.sql.SQLException;
 import java.util.Objects;
+import java.util.Optional;
 
-public class HouseService {
+public class HouseService  {
 
     private final HouseRepository houseRepository;
+
+
 
     private static HouseService instance=null;
 
@@ -26,12 +32,16 @@ public class HouseService {
         return instance;
     }
 
-    public void save(House house) {
-        houseRepository.add(house);
+    public void save(House house)  {
+        try {
+            houseRepository.add(house);
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public boolean isNumberFree(Integer numberOfHouse) {
-        return houseRepository.getByKey(numberOfHouse).isEmpty();
+        return !houseRepository.getAllKey().contains(numberOfHouse);
     }
 
     public boolean isFlatExisting(Integer numberOfHouse, int numberOfFlat) {
@@ -44,7 +54,8 @@ public class HouseService {
             System.out.println("There is no house with this number.Please try again");
             numberOfHouse = userInterface.getUserInput();
         }
-        return houseRepository.getByKey(numberOfHouse).get();
+        //return houseRepository.getByKey(numberOfHouse).get();
+        return  houseRepository.getByKey(numberOfHouse).get();
     }
 
     public boolean isFlatNonExisting(Integer numberOfHouse, int numberOfFlat) {
@@ -87,12 +98,12 @@ public class HouseService {
 
     public int getValueOfFlatInFloor(int numberOfHouse) {
         House house = findHouseByNumber(numberOfHouse);
-        return house.getFloors().get(0).getNumberOfFlatsInFloor();
+        return house.getFloors().get(0).getNumberOfFlats();
     }
 
     public double getTotalAreaOfHouse(int numberOfHouse) {
         House house = findHouseByNumber(numberOfHouse);
-        FloorService floorService = SingletonFactory.getObject(FloorService.class);
+       FloorService floorService = SingletonFactory.getObject(FloorService.class);
         double totalArea = 0;
         for (Floor floor : house.getFloors()) {
             totalArea += floorService.getCountingOfSquare(floor);
@@ -156,11 +167,11 @@ public class HouseService {
 
 
     public boolean isRepositoryNull() {
-        return houseRepository.getAll().isEmpty();
+        return houseRepository.getAllKey().isEmpty();
     }
 
     public boolean isRepositoryHaveTwoHouses() {
-        return houseRepository.getAll().size() < 2;
+        return houseRepository.getAllKey().size() < 2;
     }
 
     public String outputAllNumberOfHouses() {

@@ -45,10 +45,10 @@ class HouseServiceTest {
                     .withSquareOfFlat(55)
                     .build());
         }
-        floor1.setNumberOfFlatsInFloor(5);
+        floor1.setNumberOfFlats(5);
         Floor floor2 = new Floor();
         floor2.setNumberOfFloor(2);
-        floor2.setNumberOfFlatsInFloor(5);
+        floor2.setNumberOfFlats(5);
         for (int i = 0; i < 5; i++) {
             floor2.getFlats().add(Flat.FlatBuilder
                     .aFlat()
@@ -60,7 +60,7 @@ class HouseServiceTest {
         }
         house.getFloors().add(floor1);
         house.getFloors().add(floor2);
-        house.setNumberOfHouse(1);
+        house.setNumberOfHouse(10);
     }
 
     @BeforeEach

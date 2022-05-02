@@ -8,14 +8,17 @@ import com.mironov.services.HouseService;
 
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.SortedMap;
 
 public class UserInterface {
     public static final String OPERATIONS_MENU = """
-            Input value 0 to 5
+            Input value 0 to 6
             Choose 1 if you want create new house
             Choose 2 if you want to know information about an existing house
             Choose 3 if you want remove house
             Choose 4 if you want compare 2 houses
+            Choose 5 if you want to know values of free flat in house
+            Choose 6 if you want to check status of flat
             Choose 0 if you want exit
             """;
     public ArrayList<Integer> squareOfFLat = new ArrayList<>();
@@ -63,9 +66,13 @@ public class UserInterface {
                     int numberOfHouse;
                     boolean isNumberFree;
                     do {
-                        System.out.println("Input number of house");
+                        System.out.println("Input number of house:" + houseService.outputAllNumberOfHouses()
+                                + ",choose 0 if you want return to menu");
                         numberOfHouse = getUserInput();
                         isNumberFree = houseService.isNumberFree(numberOfHouse);
+                        if (numberOfHouse == 0) {
+                            break;
+                        }
                         if (!isNumberFree) {
                             System.out.println("Number is busy");
                         }
@@ -221,8 +228,9 @@ public class UserInterface {
                                         "(1-" + houseService.getValueOfFlatsInHouse(numberOfSecondHouse) + ")");
                                 int numberOfSecondFlat = getUserInput();
                                 while (houseService.isFlatNonExisting(numberOfSecondHouse, numberOfSecondFlat)
-                                        || (numberOfFirstFlat == numberOfSecondFlat)) {
-                                    System.out.println("There is no flat with this number or you input similar numbers of flats\n" +
+                                        || (numberOfFirstFlat == numberOfSecondFlat && numberOfFirstHouse==numberOfSecondHouse)) {
+                                    System.out.println("There is no flat with this number or you input similar numbers " +
+                                            "of flats\n" +
                                             ".Please try again");
                                     numberOfSecondFlat = getUserInput();
                                 }
@@ -237,8 +245,51 @@ public class UserInterface {
                     } while (userInput != 1 && userInput != 2);
 
                 }
+                case 5 ->{
+                    int numberOfHouse;
+                    boolean isNumberFree;
+                    do {
+                        System.out.println("Input number of house:" + houseService.outputAllNumberOfHouses()
+                                + ",choose 0 if you want return to menu");
+                        numberOfHouse = getUserInput();
+                        isNumberFree = houseService.isNumberFree(numberOfHouse);
+                        if (numberOfHouse == 0) {
+                            break;
+                        }
+                        if (isNumberFree) {
+                            System.out.println("House is not exist");
+                        }
+                    } while (isNumberFree);
+                    int valueOfFreeFlats=houseRepository.getValueOfFreeFlats(numberOfHouse);
+                    System.out.println("Value of Free Flats: "+valueOfFreeFlats);
+                }
+                case 6->{
+                    System.out.println("Input number of  house" + houseService.outputAllNumberOfHouses()
+                            + ",choose 0 if you want return to menu");
+                    int numberOfHouse = getUserInput();
+                    if (numberOfHouse == 0) {
+                        break;
+                    }
+                    while (houseService.isNumberFree(numberOfHouse)) {
+                        System.out.println("There is no house with this number.Please try again");
+                        numberOfHouse = getUserInput();
+                    }
+                    System.out.println(" Input number of  flat by " + numberOfHouse + " house" +
+                            "(1-" + houseService.getValueOfFlatsInHouse(numberOfHouse) + ")");
+                    int numberOfFirstFlat = getUserInput();
+                    while (houseService.isFlatNonExisting(numberOfHouse, numberOfFirstFlat)) {
+                        System.out.println("There is no flat with this number.Please try again");
+                        numberOfFirstFlat = getUserInput();
+                    }
+                    if (houseRepository.isFlatInNormal(numberOfFirstFlat,numberOfHouse)){
+                        System.out.println("This flat in normal");
+                    }
+                    else{
+                        System.out.println("This flat does not have enough living space ");
+                    }
+                }
                 case 0 -> {
-                    System.out.println("Thank you for using CreatorHouse v1.6");
+                    System.out.println("Thank you for using CreatorHouse v2.2");
 
                 }
                 default -> {

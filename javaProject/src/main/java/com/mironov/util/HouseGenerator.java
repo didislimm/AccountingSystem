@@ -35,7 +35,7 @@ public class HouseGenerator {
 
     public static Flat createRandomFlat(double squareOfFlat) {
         int randomNumberOfRoom = getRandomDoubleInRange(1, 4).intValue();
-        int randomNumberOfLodger = getRandomDoubleInRange(1, 7).intValue();
+        int randomNumberOfLodger = getRandomDoubleInRange(0, 6).intValue();
         flatNumber++;
         return Flat.FlatBuilder.aFlat()
                 .withNumberOfFlat(flatNumber)

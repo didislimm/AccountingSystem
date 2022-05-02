@@ -1,0 +1,19 @@
+DROP TABLE IF EXISTS HOUSES;
+CREATE TABLE HOUSES(ID INT PRIMARY KEY, NUMBER_OF_HOUSE INT);
+INSERT INTO HOUSES VALUES(1, 11);
+INSERT INTO HOUSES VALUES(2, 22);
+
+DROP TABLE IF EXISTS FLATS;
+CREATE TABLE FLATS(
+                       ID INT PRIMARY KEY,
+                       NUMBER_OF_FLAT INT,
+                       SQUARE FLOAT,
+                       LODGERS INT,
+                       ROOMS INT,
+                       HOUSE_ID INT,
+                       foreign key (HOUSE_ID) references HOUSES(ID)
+);
+
+INSERT INTO FLATS VALUES ( 1,1,56.0,2,2,1,1 );
+INSERT INTO FLATS VALUES ( 2,2,56.0,5,3,2,1 );
+INSERT INTO FLATS VALUES ( 3,3,56.0,7,4,3,1 );

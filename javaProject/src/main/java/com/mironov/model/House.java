@@ -10,13 +10,24 @@ import java.util.List;
 @Getter
 @Setter
 public class House {
-    private int id;
-    private List<Floor> floors = new ArrayList<>();
     private int numberOfHouse;
+    private int valueOfFloors;
+    private List<Floor> floors = new ArrayList<>();
+
+//    public void setFloors(List<Floor> floors) {
+//        this.floors.clear();
+//        this.floors.addAll(floors);
+//    }
+
+
+    public void setFloors(List<Floor> floors) {
+        this.floors = floors;
+    }
 
     public static final class HouseBuilder {
-        private List<Floor> floors = new ArrayList<>();
         private int numberOfHouse;
+        private int numberOfFloors;
+        private List<Floor> floors = new ArrayList<>();
 
         private HouseBuilder() {
         }
@@ -25,13 +36,18 @@ public class House {
             return new HouseBuilder();
         }
 
-        public HouseBuilder withFloors(List<Floor> floors) {
-            this.floors = floors;
+        public HouseBuilder withNumberOfHouse(int numberOfHouse) {
+            this.numberOfHouse = numberOfHouse;
             return this;
         }
 
-        public HouseBuilder withNumberOfHouse(int numberOfHouse) {
-            this.numberOfHouse = numberOfHouse;
+        public HouseBuilder withNumberOfFloors() {
+            this.numberOfFloors = floors.size();
+            return this;
+        }
+
+        public HouseBuilder withFloors(List<Floor> floors) {
+            this.floors = floors;
             return this;
         }
 
@@ -40,13 +56,15 @@ public class House {
             for (int i = 0; i < numberOfFloors; i++) {
                 floorList.add(HouseGenerator.createRandomFloor(squareOfFlats));
             }
-            return aHouse().withFloors(floorList).withNumberOfHouse(numberOfHouse);
+            return aHouse().withFloors(floorList).withNumberOfHouse(numberOfHouse)
+                    .withNumberOfFloors();
         }
 
         public House build() {
             House house = new House();
-            house.setFloors(floors);
             house.setNumberOfHouse(numberOfHouse);
+            house.setValueOfFloors(numberOfFloors);
+            house.setFloors(floors);
             return house;
         }
     }
