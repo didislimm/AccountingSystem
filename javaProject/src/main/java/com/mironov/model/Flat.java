@@ -65,9 +65,9 @@ public class Flat {
     @Override
     public String toString() {
         return System.lineSeparator() + "Flat " + numberOfFlat +
-                " squareOfFlat=" + squareOfFlat +
-                " numberOfPeople=" + numberOfLodger +
-                " numberOfRoom=" + numberOfRoom + '\n';
+                " Square=" + squareOfFlat +
+                " NumberOfPeople=" + numberOfLodger +
+                " NumberOfRoom=" + numberOfRoom + "<p>";
     }
 
     public static final class FlatBuilder {

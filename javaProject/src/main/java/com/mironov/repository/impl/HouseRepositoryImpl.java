@@ -18,9 +18,6 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-//         5 Запрос c UNION +-
-//         6 2 запроса с подзапросами, один взаимосвязанный, второй - нет.-+
-
 public class HouseRepositoryImpl implements HouseRepository {
     private static HouseRepository instance = null;
     private final FlatRepositoryImpl flatRepository = new FlatRepositoryImpl();
@@ -87,7 +84,6 @@ public class HouseRepositoryImpl implements HouseRepository {
                     + Const.FLATS_SQUARE + " FROM " + Const.FLAT_TABLE + " INNER JOIN " +
                     Const.HOUSE_TABLE + " ON " + Const.FLATS_HOUSE_ID + "=" + Const.HOUSE_ID + " WHERE "
                     + Const.FLATS_NUMBER_OF_HOUSE + "=" + numberOfHouse + " ORDER BY " + Const.FLATS_NUMBER_OF_FLAT;
-
 
             Connection connection = connectionPool.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement(find,

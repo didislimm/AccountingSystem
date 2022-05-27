@@ -3,15 +3,13 @@ package com.mironov.services;
 import com.mironov.model.Flat;
 import com.mironov.model.Floor;
 import com.mironov.model.House;
-import com.mironov.repository.FlatRepository;
 import com.mironov.repository.HouseRepository;
-import com.mironov.repository.impl.FlatRepositoryImpl;
 import com.mironov.util.SingletonFactory;
 import com.mironov.util.UserInterface;
 
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Objects;
-import java.util.Optional;
 
 public class HouseService  {
 
@@ -174,7 +172,7 @@ public class HouseService  {
         return houseRepository.getAllKey().size() < 2;
     }
 
-    public String outputAllNumberOfHouses() {
-        return houseRepository.getAllKey().toString();
+    public List<Integer> getAllNumberOfHouses() {
+        return houseRepository.getAllKey();
     }
 }

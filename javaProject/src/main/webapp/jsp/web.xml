@@ -3,16 +3,13 @@
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee
 		 http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-
-    <display-name>Test</display-name>
-
     <servlet>
-        <servlet-name>testServlet</servlet-name>
-        <servlet-class></servlet-class>
+        <servlet-name>MainController</servlet-name>
+        <servlet-class>com.mironov.controller.MainController</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>testServlet</servlet-name>
-        <url-pattern>/test</url-pattern>
+        <servlet-name>MainController</servlet-name>
+        <url-pattern>/controller</url-pattern>
     </servlet-mapping>
 
 </web-app>

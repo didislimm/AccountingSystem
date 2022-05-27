@@ -48,7 +48,7 @@ public class Floor {
             flatsToString.append(flat.toString());
         }
         return numberOfFloor + " Floor " +
-                " flats: " + flatsToString;
+                " flats:<p>" + flatsToString;
     }
 
 //    public void setFlats(List<Flat> flats) {
@@ -93,9 +93,9 @@ public class Floor {
              this.numberOfHouse=numberOfHouse;
              return this;
         }
-        public FloorBuilder but(ArrayList<Integer> squareOfFlats, int numberOfFloor) {
+        public FloorBuilder but(ArrayList<Double> squareOfFlats, int numberOfFloor) {
             List<Flat> flatList = new ArrayList<>();
-            for (Integer squareOfFlat : squareOfFlats) {
+            for (Double squareOfFlat : squareOfFlats) {
                 flatList.add(HouseGenerator.createRandomFlat(squareOfFlat));
             }
             return aFloor().withFlats(flatList).withNumberOfFloor(numberOfFloor)

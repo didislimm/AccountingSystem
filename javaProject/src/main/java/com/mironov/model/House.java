@@ -1,5 +1,7 @@
 package com.mironov.model;
 
+import com.mironov.repository.impl.HouseRepositoryImpl;
+import com.mironov.services.HouseService;
 import com.mironov.util.HouseGenerator;
 import lombok.Getter;
 import lombok.Setter;
@@ -23,6 +25,20 @@ public class House {
     public void setFloors(List<Floor> floors) {
         this.floors = floors;
     }
+
+    @Override
+    public String toString() {
+        StringBuilder floorsToString = new StringBuilder();
+        for (Floor floor : floors) {
+            floorsToString.append(floor.toString());
+        }
+        HouseService houseService=HouseService.getInstance(HouseRepositoryImpl.getInstance());
+        return "House " + numberOfHouse + "<p>" +
+                "Total Area: " + houseService.getTotalAreaOfHouse(numberOfHouse) + "<p>" +
+                "Total value of Lodgers: " + houseService.getTotalLodgersOfHouse(numberOfHouse) + "<p>" +
+                " floors:" + "<p>" + floorsToString;
+    }
+
 
     public static final class HouseBuilder {
         private int numberOfHouse;
@@ -51,7 +67,7 @@ public class House {
             return this;
         }
 
-        public HouseBuilder but(ArrayList<Integer> squareOfFlats, int numberOfFloors) {
+        public HouseBuilder but(ArrayList<Double> squareOfFlats, int numberOfFloors) {
             List<Floor> floorList = new ArrayList<>();
             for (int i = 0; i < numberOfFloors; i++) {
                 floorList.add(HouseGenerator.createRandomFloor(squareOfFlats));

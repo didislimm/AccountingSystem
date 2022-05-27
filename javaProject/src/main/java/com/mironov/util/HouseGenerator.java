@@ -45,12 +45,12 @@ public class HouseGenerator {
                 .build();
     }
 
-    public static Floor createRandomFloor(ArrayList<Integer> squareOfFlats) {
+    public static Floor createRandomFloor(ArrayList<Double> squareOfFlats) {
         floorNumber++;
         return Floor.FloorBuilder.aFloor().but(squareOfFlats, floorNumber).build();
     }
 
-    public House createRandomHouse(ArrayList<Integer> squareOfFlats) {
+    public House createRandomHouse(ArrayList<Double> squareOfFlats) {
         House house = House.HouseBuilder.aHouse().but(squareOfFlats, valueOfFloors).build();
         squareOfFlats.clear();
         flatNumber = 0;
