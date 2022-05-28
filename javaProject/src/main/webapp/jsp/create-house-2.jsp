@@ -28,7 +28,7 @@
         Square of <c:out value="${number}"/> flat<p>
         <input type="number" min="12" max="200" step="0.1" name="square${number}" required>
     </c:forEach><p>
-        <input type="submit" value="Create House" onclick="">
+        <input type="submit" value="Create House" onclick="document.location='/index.jsp'">
 </form>
 
     <script>

@@ -1,7 +1,7 @@
 <%@ page import="com.mironov.repository.impl.HouseRepositoryImpl" %>
 <%@ page import="com.mironov.services.HouseService" %>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix = "c"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix = "sql"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/sql" prefix="sql" %>
 <!DOCTYPE html>
 <html>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -29,9 +29,10 @@
     }
 </style>
 <body>
-<link rel="stylesheet" href="css/button.css">
-<h1>Existing house:<%out.print(HouseService.getInstance(HouseRepositoryImpl.getInstance()).getAllNumberOfHouses());%></h1>
+<h1>Existing
+    house:<%out.print(HouseService.getInstance(HouseRepositoryImpl.getInstance()).getAllNumberOfHouses());%></h1>
 <form id="regForm" action="${pageContext.request.contextPath}/controller?command=check_values">
+
     <input type="hidden" name="command" value="check_values">
     <h1>First Step:</h1>
     <div class="tab">
@@ -40,9 +41,10 @@
         <p>Input value of floors</p>
         <input name="valueOfFloors" type="number" max="200" min="1" required>
         <p>Choose value of flats in floor:</p>
-        <input max="10"  min="2" name="valueOfFlats" id="inputId" type="range" oninput="outputId.value = inputId.value" required>
+        <input max="10" min="2" name="valueOfFlats" id="inputId" type="range" oninput="outputId.value = inputId.value"
+               required>
         <output name="value" id="outputId">6</output>
-        <input type="submit" class="button" value="Next">
+        <input type="submit"  value="Next">
     </div>
 </form>
 

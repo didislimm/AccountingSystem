@@ -46,12 +46,12 @@
 </head>
 <body>
 <h1>Existing house:<%out.print(HouseService.getInstance(HouseRepositoryImpl.getInstance()).getAllNumberOfHouses()); %></h1>
-    <form id = regForm action="${pageContext.request.contextPath}/controller">
-        <input type="hidden" name="command" value="output_house">
-        <p>Input number of House:</p>
-            <input name="numberOfHouse" type="number" max="500" min="1" required>
-            <input type="submit" value="Next" name="Next">
-    </form>
+<form id = regForm action="${pageContext.request.contextPath}/controller">
+    <input type="hidden" name="command" value="remove_house">
+    <p>Input number of House:</p>
+    <input name="numberOfHouse" type="number" max="500" min="1" required>
+    <input type="submit" value="Remove" >
+</form>
 </body>
 
 

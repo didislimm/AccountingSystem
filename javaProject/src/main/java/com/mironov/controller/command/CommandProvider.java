@@ -1,9 +1,6 @@
 package com.mironov.controller.command;
 
-import com.mironov.controller.command.impl.CheckValuesCommand;
-import com.mironov.controller.command.impl.CreateHouseCommand;
-import com.mironov.controller.command.impl.MenuCommand;
-import com.mironov.controller.command.impl.OutputHouseCommand;
+import com.mironov.controller.command.impl.*;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -12,11 +9,11 @@ public class CommandProvider {
     private Map<ParameterName, Command> commands = new HashMap<>();
 
     public CommandProvider() {
-        commands.put(ParameterName.CREATE_HOUSE,new CreateHouseCommand());
-        commands.put(ParameterName.CHECK_VALUES,new CheckValuesCommand());
-        commands.put(ParameterName.OUTPUT_HOUSE,new OutputHouseCommand());
-        commands.put(ParameterName.MENU,new MenuCommand());
-
+        commands.put(ParameterName.CREATE_HOUSE, new CreateHouseCommand());
+        commands.put(ParameterName.CHECK_VALUES, new CheckValuesCommand());
+        commands.put(ParameterName.OUTPUT_HOUSE, new OutputHouseCommand());
+        commands.put(ParameterName.REMOVE_HOUSE, new RemoveHouseCommand());
+        commands.put(ParameterName.MENU, new MenuCommand());
     }
 
     public Command getCommand(String commandName) {

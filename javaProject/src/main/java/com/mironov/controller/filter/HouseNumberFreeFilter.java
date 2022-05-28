@@ -7,25 +7,24 @@ import javax.servlet.*;
 import javax.servlet.annotation.WebFilter;
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.List;
 
-@WebFilter(urlPatterns ={"/jsp/create-house-2.jsp"})
-public class HouseNumberFilter implements Filter {
+@WebFilter(urlPatterns = {"/jsp/create-house-2.jsp"},dispatcherTypes ={DispatcherType.REQUEST,DispatcherType.FORWARD})
+public class HouseNumberFreeFilter implements Filter {
 
     @Override
     public void doFilter(ServletRequest servletRequest, ServletResponse servletResponse, FilterChain filterChain)
             throws IOException, ServletException {
-        int numberOfHouse=Integer.parseInt((String) servletRequest.getAttribute("numberOfHouse"));
+        int numberOfHouse = (Integer.parseInt( servletRequest.getParameter("numberOfHouse")));
         List<Integer> allNumberOfHouses = HouseService.getInstance(HouseRepositoryImpl.getInstance()).getAllNumberOfHouses();
-        if (!allNumberOfHouses.contains(numberOfHouse)){
+        if (allNumberOfHouses.contains(numberOfHouse)) {
             if (servletRequest instanceof HttpServletRequest) {
-                String url = ((HttpServletRequest) servletRequest).getRequestURL().toString();
-                servletRequest.getRequestDispatcher(url).forward(servletRequest,servletResponse);
+                String url = ((HttpServletRequest) servletRequest).getRequestURI();
+                url=url.replace("2.jsp","1.jsp");
+                servletRequest.getRequestDispatcher(url).forward(servletRequest, servletResponse);
             }
-        }
-        else {
-            filterChain.doFilter(servletRequest,servletResponse);
+        } else {
+            filterChain.doFilter(servletRequest, servletResponse);
         }
     }
 }

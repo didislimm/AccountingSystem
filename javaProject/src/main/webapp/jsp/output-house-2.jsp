@@ -4,7 +4,8 @@
 <head>
 </head>
 <body>
+<link rel="stylesheet" href="css/button.css">
         ${sessionScope.house.toString()}
-
+        <input class="button" onclick="document.location='/index.jsp'" value="Menu">
 </body>
 </html>

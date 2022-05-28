@@ -5,7 +5,6 @@ import com.mironov.model.Floor;
 import com.mironov.model.House;
 import com.mironov.repository.HouseRepository;
 import com.mironov.util.SingletonFactory;
-import com.mironov.util.UserInterface;
 
 import java.sql.SQLException;
 import java.util.List;
@@ -47,17 +46,15 @@ public class HouseService  {
     }
 
     public House findHouseByNumber(Integer numberOfHouse) {
-        UserInterface userInterface = new UserInterface();
-        while (isNumberFree(numberOfHouse)) {
-            System.out.println("There is no house with this number.Please try again");
-            numberOfHouse = userInterface.getUserInput();
-        }
-        //return houseRepository.getByKey(numberOfHouse).get();
         return  houseRepository.getByKey(numberOfHouse).get();
     }
 
     public boolean isFlatNonExisting(Integer numberOfHouse, int numberOfFlat) {
         return !(numberOfFlat > 0 && numberOfFlat <= getValueOfFlatsInHouse(numberOfHouse));
+    }
+
+    public void removeByKey(Integer key){
+        houseRepository.removeByKey(key);
     }
 
     public Flat getFlatByNumber(int numberOfFlat, int numberOfHouse) {
